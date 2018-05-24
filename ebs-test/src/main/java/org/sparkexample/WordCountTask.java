@@ -47,12 +47,14 @@ public class WordCountTask {
      * Performs a work count sequence of tasks and prints the output with a logger.
      */
     context.textFile(inputFilePath)
-        .flatMap(text -> Arrays.asList(text.split(" ")).iterator())
+        .flatMap(text -> Arrays.asList(text.split(" ")).iterator()).toString();
+
+/*
         .mapToPair(word -> new Tuple2<>(word, 1))
         .reduceByKey((a, b) -> a + b); //.saveAsTextFile("/out.txt");
+*/
     JavaRDD<Object> jrdd = context.parallelize(Arrays.asList(context));
 
-    System.out.println(jrdd.toString());
 
     //JavaRDD  javaRDD =
     JavaEsSpark.saveToEs(jrdd, "spark/testresult");
