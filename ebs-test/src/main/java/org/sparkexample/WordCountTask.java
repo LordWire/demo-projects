@@ -55,7 +55,7 @@ public class WordCountTask {
     System.out.println(jrdd.toString());
 
     //JavaRDD  javaRDD =
-    JavaEsSpark.saveToEs(javaRDD, "spark/testresult");
+    JavaEsSpark.saveToEs(jrdd, "spark/testresult");
   }
 }
 
