@@ -47,7 +47,7 @@ public class WordCountTask {
 //            JavaEsSpark.esRDD(jsc, "radio/artists");
 
     JavaRDD<Map<String, Object>> esRDD = esRDD(context, "4", "?q=me*").values();
-    System.out.println(esRDD.toString());
+    esRDD.take(100).forEach(System.out::println);
 
 //    context.textFile(inputFilePath)
 //            .flatMap(text -> Arrays.asList(text.split(" ")).iterator())
