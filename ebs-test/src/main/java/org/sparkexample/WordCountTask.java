@@ -21,7 +21,8 @@ import com.google.common.collect.ImmutableList;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.elasticsearch.spark.rdd.api.java.JavaEsSpark;
+//import org.elasticsearch.spark.rdd.api.java.JavaEsSpark;
+import static org.elasticsearch.spark.rdd.api.java.JavaEsSpark.*;
 import scala.Tuple2;
 import java.util.Arrays;
 import java.util.Map;
@@ -42,22 +43,21 @@ public class WordCountTask {
     conf.set("spark.es.index.auto.create", "true");
     conf.set("spark.es.nodes", "elastest_esnode_1");
     JavaSparkContext context = new JavaSparkContext(conf);
+//    JavaPairRDD<String, Map<String, Object>> esRDD =
+//            JavaEsSpark.esRDD(jsc, "radio/artists");
 
-    /*
-     * Performs a work count sequence of tasks and prints the output with a logger.
-     */
-    context.textFile(inputFilePath)
-        .flatMap(text -> Arrays.asList(text.split(" ")).iterator()).toString();
+    JavaRDD<Map<String, Object>> esRDD = esRDD(context, "4", "?q=me*").values();
+    System.out.println(esRDD.toString());
 
-/*
-        .mapToPair(word -> new Tuple2<>(word, 1))
-        .reduceByKey((a, b) -> a + b); //.saveAsTextFile("/out.txt");
-*/
-    JavaRDD<Object> jrdd = context.parallelize(Arrays.asList(context));
+//    context.textFile(inputFilePath)
+//            .flatMap(text -> Arrays.asList(text.split(" ")).iterator())
+//            .mapToPair(word -> new Tuple2<>(word, 1))
+//            .reduceByKey((a, b) -> a + b); //.saveAsTextFile("/out.txt");
+    //JavaRDD<Object> jrdd = context.parallelize(Arrays.asList(context));
 
 
     //JavaRDD  javaRDD =
-    JavaEsSpark.saveToEs(jrdd, "spark/testresult");
+ //   JavaEsSpark.saveToEs(jrdd, "spark/testresult");
   }
 }
 
