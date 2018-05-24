@@ -48,6 +48,7 @@ public class WordCountTask {
 
     JavaRDD<Map<String, Object>> esRDD = esRDD(context, "4", "?q=me*").values();
     esRDD.take(100).forEach(System.out::println);
+    esRDD.take(100).forEach(p -> System.out.println(p));
 
 //    context.textFile(inputFilePath)
 //            .flatMap(text -> Arrays.asList(text.split(" ")).iterator())
