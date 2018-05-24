@@ -17,12 +17,15 @@
 
 
 package org.sparkexample;
+import com.google.common.collect.ImmutableList;
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.elasticsearch.spark.rdd.api.java.JavaEsSpark;
 import scala.Tuple2;
 import java.util.Arrays;
+import java.util.Map;
+
 import static com.google.common.base.Preconditions.checkArgument;
 
 
@@ -36,6 +39,8 @@ public class WordCountTask {
   public void run(String inputFilePath) {
     SparkConf conf = new SparkConf()
         .setAppName(WordCountTask.class.getName());
+    conf.set("spark.es.index.auto.create", "true");
+    conf.set("spark.es.nodes", "edm_esnode_1");
     JavaSparkContext context = new JavaSparkContext(conf);
 
     /*
@@ -44,6 +49,27 @@ public class WordCountTask {
     context.textFile(inputFilePath)
         .flatMap(text -> Arrays.asList(text.split(" ")).iterator())
         .mapToPair(word -> new Tuple2<>(word, 1))
-        .reduceByKey((a, b) -> a + b).saveAsTextFile("/out.txt");
+        .reduceByKey((a, b) -> a + b); // .saveAsTextFile("/out.txt");
+    JavaRDD  javaRDD = context.parallelize(Arrays.asList(context));
+    JavaEsSpark.saveToEs(javaRDD, "spark/testresult");
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

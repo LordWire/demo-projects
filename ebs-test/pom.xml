@@ -27,5 +27,12 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.22</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-spark-20 -->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-spark-20_2.11</artifactId>
+            <version>6.2.4</version>
+        </dependency>
+
     </dependencies>
 </project>
