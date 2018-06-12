@@ -52,6 +52,17 @@ public class WordCountTask {
     Map<String, Object> myMap = new HashMap<>();
     esRDD.collect().forEach(i -> myMap.putAll(i));
 
+    List<Map<String, Object>> lmap = new ArrayList<>();
+    esRDD.collect().forEach(i -> lmap.add(i));
+
+    for(Map<String, Object> item : lmap){
+      for(Map.Entry<String, Object> mItem : item.entrySet()){
+        if( mItem.getKey().equals("message") ){
+          System.out.println("NEW MESSAGE: " +  mItem.getValue());
+        }
+      }
+    }
+
     /*esRDD.collect().forEach(
             (Map<String, Object> i) -> {
                 myMap.entrySet().contains("message");
