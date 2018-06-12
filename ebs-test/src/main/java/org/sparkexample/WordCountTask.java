@@ -74,7 +74,7 @@ public class WordCountTask {
     System.out.println("size: " + myMap.size());
 
     for(Map.Entry<String, Object>  obj :  myMap.entrySet()){
-      if ( obj.getKey().equals("message") ){+0
+      if ( obj.getKey().equals("message") ){
 
         msg.add((String) obj.getValue());
       }
@@ -83,8 +83,8 @@ public class WordCountTask {
     // Print the messages
     for (String s: msg){
 //      if ( s.matches(input) ) {
-//        System.out.println("message: " + s);
-//      }
+        System.out.println("message: " + s);
+    //}
     }
 
   }
