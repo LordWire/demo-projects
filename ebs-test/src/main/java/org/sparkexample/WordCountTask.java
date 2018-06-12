@@ -32,14 +32,14 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 public class WordCountTask {
   public static void main(String[] args) {
-    //checkArgument(args.length > 0, "Please provide the path of input file as first parameter.");
-    //new WordCountTask().run(args[0]);
-    new WordCountTask().run();
+    checkArgument(args.length > 0, "Please provide the path of input file as first parameter.");
+    new WordCountTask().run(args[0]);
+
   }
 
 
 
-  public void run(){
+  public void run(String input){
     SparkConf conf = new SparkConf()
             .setAppName(WordCountTask.class.getName());
     conf.set("spark.es.index.auto.create", "true");
@@ -92,7 +92,7 @@ public class WordCountTask {
 
     // Print the messages
     for (String s: msg){
-      if ( s.contains("WARN") ) {
+      if ( s.contains(input) ) {
         System.out.println("message: " + s);
       }
     }
