@@ -32,8 +32,22 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 public class WordCountTask {
   public static void main(String[] args) {
-    checkArgument(args.length > 0, "Please provide the path of input file as first parameter.");
-    new WordCountTask().run(args[0]);
+    //checkArgument(args.length > 0, "Please provide the path of input file as first parameter.");
+    //new WordCountTask().run(args[0]);
+    new WordCountTask().run();
+  }
+
+
+
+  public void run(){
+    SparkConf conf = new SparkConf()
+            .setAppName(WordCountTask.class.getName());
+    conf.set("spark.es.index.auto.create", "true");
+    conf.set("spark.es.nodes", "elastest_esnode_1");
+    JavaSparkContext context = new JavaSparkContext(conf);
+    JavaRDD<Map<String, Object>> esRDD = esRDD(context, "362", "?q=me*").values();
+    esRDD.take(100).forEach(System.out::println);
+    esRDD.take(100).forEach(p -> System.out.println(p));
   }
 
   
@@ -50,6 +64,10 @@ public class WordCountTask {
     esRDD.take(100).forEach(System.out::println);
     esRDD.take(100).forEach(p -> System.out.println(p));
 
+
+
+
+
 //    context.textFile(inputFilePath)
 //            .flatMap(text -> Arrays.asList(text.split(" ")).iterator())
 //            .mapToPair(word -> new Tuple2<>(word, 1))
@@ -60,6 +78,10 @@ public class WordCountTask {
     //JavaRDD  javaRDD =
  //   JavaEsSpark.saveToEs(jrdd, "spark/testresult");
   }
+
+
+
+
 }
 
 
