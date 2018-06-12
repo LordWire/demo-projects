@@ -61,31 +61,20 @@ public class WordCountTask {
 
     for(Map<String, Object> item : lmap){
       for(Map.Entry<String, Object> mItem : item.entrySet()){
-        if( mItem.getKey().equals("message") ){
+        if( mItem.getKey().equals("message") && mItem.getValue().toString().contains(input) ){
           System.out.println("NEW MESSAGE: " +  mItem.getValue());
         }
       }
     }
 
-    /*esRDD.collect().forEach(
-            (Map<String, Object> i) -> {
-                myMap.entrySet().contains("message");
-
-            } //myMap.putAll(i)
-
-    );
-*/
 
 
-/*
-    List<String> msg = new ArrayList<>();
-//    esRDD.collect().stream().forEach(i-> i.get( i.containsKey("message") ) );
-
-
+/*    List<String> msg = new ArrayList<>();
     System.out.println("size: " + myMap.size());
 
     for(Map.Entry<String, Object>  obj :  myMap.entrySet()){
       if ( obj.getKey().equals("message") ){
+
         msg.add((String) obj.getValue());
       }
     }
@@ -95,8 +84,8 @@ public class WordCountTask {
       if ( s.contains(input) ) {
         System.out.println("message: " + s);
       }
-    }
-    */
+    }*/
+
   }
 
   
