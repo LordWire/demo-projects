@@ -24,9 +24,8 @@ import org.apache.spark.api.java.JavaSparkContext;
 //import org.elasticsearch.spark.rdd.api.java.JavaEsSpark;
 import static org.elasticsearch.spark.rdd.api.java.JavaEsSpark.*;
 import scala.Tuple2;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.*;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -51,14 +50,31 @@ public class WordCountTask {
     esRDD.take(100).forEach(p -> System.out.println(p));
 
     Map<String, Object> myMap = new HashMap<>();
-    esRDD.take(100).forEach(i -> myMap.putAll(i));
+    esRDD.collect().forEach(i -> myMap.putAll(i));
+
+    /*esRDD.collect().forEach(
+            (Map<String, Object> i) -> {
+                myMap.entrySet().contains("message");
+
+            } //myMap.putAll(i)
+
+    );
+*/
+
+    List<String> msg = new ArrayList<>();
+//    esRDD.collect().stream().forEach(i-> i.get( i.containsKey("message") ) );
+
 
     System.out.println("size: " + myMap.size());
 
     for(Map.Entry<String, Object>  obj :  myMap.entrySet()){
-      System.out.println("Key: " + obj.getKey());
+      if ( obj.getKey().equals("message") ){
+        msg.add((String) obj.getValue());
+      }
     }
-
+    for (String s: msg){
+      System.out.println("message: " + s);
+    }
   }
 
   
