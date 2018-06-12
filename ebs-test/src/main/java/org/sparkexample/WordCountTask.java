@@ -82,7 +82,7 @@ public class WordCountTask {
 
     // Print the messages
     for (String s: msg){
-      if ( s.contains(input) ) {
+      if ( s.matches(input) ) {
         System.out.println("message: " + s);
       }
     }
