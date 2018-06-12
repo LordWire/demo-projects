@@ -25,6 +25,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 import static org.elasticsearch.spark.rdd.api.java.JavaEsSpark.*;
 import scala.Tuple2;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -46,28 +47,34 @@ public class WordCountTask {
     conf.set("spark.es.nodes", "elastest_esnode_1");
     JavaSparkContext context = new JavaSparkContext(conf);
     JavaRDD<Map<String, Object>> esRDD = esRDD(context, "2", "?q=me*").values();
-    esRDD.take(100).forEach(System.out::println);
+    //esRDD.take(100).forEach(System.out::println);
     esRDD.take(100).forEach(p -> System.out.println(p));
+
+    Map<String, Object> myMap = new HashMap<>();
+    esRDD.take(100).forEach(i -> myMap.putAll(i));
+
+    System.out.println("size: " + myMap.size());
+
+    for(Map.Entry<String, Object>  obj :  myMap.entrySet()){
+      System.out.println("Key: " + obj.getKey());
+    }
+
   }
 
   
-  public void run(String inputFilePath) {
-    SparkConf conf = new SparkConf()
-        .setAppName(WordCountTask.class.getName());
-    conf.set("spark.es.index.auto.create", "true");
-    conf.set("spark.es.nodes", "elastest_esnode_1");
-    JavaSparkContext context = new JavaSparkContext(conf);
-//    JavaPairRDD<String, Map<String, Object>> esRDD =
-//            JavaEsSpark.esRDD(jsc, "radio/artists");
-
-    JavaRDD<Map<String, Object>> esRDD = esRDD(context, "362", "?q=me*").values();
-    esRDD.take(100).forEach(System.out::println);
-    esRDD.take(100).forEach(p -> System.out.println(p));
-
-
-
-
-
+//  public void run(String inputFilePath) {
+//    SparkConf conf = new SparkConf()
+//        .setAppName(WordCountTask.class.getName());
+//    conf.set("spark.es.index.auto.create", "true");
+//    conf.set("spark.es.nodes", "elastest_esnode_1");
+//    JavaSparkContext context = new JavaSparkContext(conf);
+////    JavaPairRDD<String, Map<String, Object>> esRDD =
+////            JavaEsSpark.esRDD(jsc, "radio/artists");
+//
+//    JavaRDD<Map<String, Object>> esRDD = esRDD(context, "362", "?q=me*").values();
+//    esRDD.take(100).forEach(System.out::println);
+//    esRDD.take(100).forEach(p -> System.out.println(p));
+//
 //    context.textFile(inputFilePath)
 //            .flatMap(text -> Arrays.asList(text.split(" ")).iterator())
 //            .mapToPair(word -> new Tuple2<>(word, 1))
@@ -77,7 +84,7 @@ public class WordCountTask {
 
     //JavaRDD  javaRDD =
  //   JavaEsSpark.saveToEs(jrdd, "spark/testresult");
-  }
+//  }
 
 
 
