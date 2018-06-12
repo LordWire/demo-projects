@@ -70,7 +70,7 @@ public class WordCountTask {
 
 
 
-/*    List<String> msg = new ArrayList<>();
+    List<String> msg = new ArrayList<>();
     System.out.println("size: " + myMap.size());
 
     for(Map.Entry<String, Object>  obj :  myMap.entrySet()){
@@ -85,7 +85,7 @@ public class WordCountTask {
       if ( s.contains(input) ) {
         System.out.println("message: " + s);
       }
-    }*/
+    }
 
   }
 
