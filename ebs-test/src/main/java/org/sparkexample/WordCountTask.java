@@ -53,7 +53,11 @@ public class WordCountTask {
     esRDD.collect().forEach(i -> myMap.putAll(i));
 
     List<Map<String, Object>> lmap = new ArrayList<>();
-    esRDD.collect().forEach(i -> lmap.add(i));
+
+
+    Map<String, Object> result = new HashMap<>();
+    lmap = esRDD.collect();
+
 
     for(Map<String, Object> item : lmap){
       for(Map.Entry<String, Object> mItem : item.entrySet()){
@@ -83,8 +87,12 @@ public class WordCountTask {
         msg.add((String) obj.getValue());
       }
     }
+
+    // Print the messages
     for (String s: msg){
-      System.out.println("message: " + s);
+      if ( s.contains("WARNING") ) {
+        System.out.println("message: " + s);
+      }
     }
   }
 
