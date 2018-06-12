@@ -61,9 +61,10 @@ public class WordCountTask {
 
     for(Map<String, Object> item : lmap){
       for(Map.Entry<String, Object> mItem : item.entrySet()){
-        if( mItem.getKey().equals("message") && mItem.getValue().toString().contains(input) ){
+        if( mItem.getKey().equals("message") && mItem.getValue().toString().matches(input) ){
           System.out.println("NEW MESSAGE: " +  mItem.getValue());
         }
+
       }
     }
 
