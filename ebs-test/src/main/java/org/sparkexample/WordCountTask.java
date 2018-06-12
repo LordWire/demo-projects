@@ -59,6 +59,7 @@ public class WordCountTask {
     lmap = esRDD.collect();
 
 
+/*
     for(Map<String, Object> item : lmap){
       for(Map.Entry<String, Object> mItem : item.entrySet()){
         if( mItem.getKey().equals("message") ){
@@ -66,6 +67,7 @@ public class WordCountTask {
         }
       }
     }
+*/
 
     /*esRDD.collect().forEach(
             (Map<String, Object> i) -> {
@@ -90,7 +92,7 @@ public class WordCountTask {
 
     // Print the messages
     for (String s: msg){
-      if ( s.contains("WARNING") ) {
+      if ( s.contains("WARN") ) {
         System.out.println("message: " + s);
       }
     }
