@@ -47,7 +47,7 @@ public class WordCountTask {
     JavaSparkContext context = new JavaSparkContext(conf);
     JavaRDD<Map<String, Object>> esRDD = esRDD(context, "2", "?q=me*").values();
     //esRDD.take(100).forEach(System.out::println);
-    esRDD.take(100).forEach(p -> System.out.println(p));
+    //esRDD.take(100).forEach(p -> System.out.println(p));
 
     Map<String, Object> myMap = new HashMap<>();
     esRDD.collect().forEach(i -> myMap.putAll(i));
