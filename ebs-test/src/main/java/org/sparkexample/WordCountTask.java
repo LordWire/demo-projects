@@ -62,34 +62,21 @@ public class WordCountTask {
     System.out.println("list size: " + rddItems.size());
     //rddItems.stream().forEach(i -> System.out.println(i));
 
-    int count=0;
-    int count2=0;
-    for(Object l :  rddItems){
-      if(l==null){
-        count++;
-        continue;
-      }
-      if(l.equals("null")){
-        count2++;
-        continue;
+
+    List<Map<String, Object>> lmap = esRDD.collect();
+
+
+    for(Map<String, Object> item : lmap){
+      for(Map.Entry<String, Object> mItem : item.entrySet()){
+        if (mItem.getValue() == null){//safety check
+          continue;
+        }
+        if( mItem.getKey().equals("message") && mItem.getValue().toString().matches(input) ){
+          System.out.println("NEW MESSAGE: " +  mItem.getValue());
+        }
+
       }
     }
-    System.out.println("Counter: " + count);
-    System.out.println("Counter2: " + count2);
-
-
-//    List<Map<String, Object>> lmap = new ArrayList<>();
-//    lmap = esRDD.collect();
-//
-//
-//    for(Map<String, Object> item : lmap){
-//      for(Map.Entry<String, Object> mItem : item.entrySet()){
-//        if( mItem.getKey().equals("message") && mItem.getValue().toString().matches(input) ){
-//          System.out.println("NEW MESSAGE: " +  mItem.getValue());
-//        }
-//
-//      }
-//    }
 
 
 
