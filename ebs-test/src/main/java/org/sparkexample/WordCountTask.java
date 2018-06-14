@@ -60,7 +60,20 @@ public class WordCountTask {
       }
     });
     System.out.println("list size: " + rddItems.size());
-    rddItems.stream().forEach(i -> System.out.println(i));
+    //rddItems.stream().forEach(i -> System.out.println(i));
+
+    int count=0;
+    int count2=0;
+    for(Object l :  rddItems){
+      if(l==null){
+        count++;
+      }
+      if(l.equals("null")){
+        count2++;
+      }
+    }
+    System.out.println("Counter: " + count);
+    System.out.println("Counter2: " + count2);
 
 
 //    List<Map<String, Object>> lmap = new ArrayList<>();
