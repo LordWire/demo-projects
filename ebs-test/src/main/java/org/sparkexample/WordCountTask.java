@@ -67,9 +67,11 @@ public class WordCountTask {
     for(Object l :  rddItems){
       if(l==null){
         count++;
+        continue;
       }
       if(l.equals("null")){
         count2++;
+        continue;
       }
     }
     System.out.println("Counter: " + count);
