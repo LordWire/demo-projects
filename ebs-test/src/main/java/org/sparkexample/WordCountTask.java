@@ -45,7 +45,7 @@ public class WordCountTask {
     conf.set("spark.es.index.auto.create", "true");
     conf.set("spark.es.nodes", "elastest_esnode_1");
     JavaSparkContext context = new JavaSparkContext(conf);
-    JavaRDD<Map<String, Object>> esRDD = esRDD(context, Integer.toString(esindex), "?q=me*").values();
+    JavaRDD<Map<String, Object>> esRDD = esRDD(context, Integer.toString(esindex), "?q=*").values();
     //esRDD.take(100).forEach(System.out::println);
     //esRDD.take(100).forEach(p -> System.out.println(p));
 
