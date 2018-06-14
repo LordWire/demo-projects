@@ -31,15 +31,15 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 
 public class WordCountTask {
-  public static void main(String[] args) {
+  public static int main(String[] args) {
     checkArgument(args.length > 0, "Please provide the path of input file as first parameter.");
-    new WordCountTask().run(args[0], args[1]);
-
+    int ret = new WordCountTask().run(args[0], args[1]);
+    return ret;
   }
 
 
 
-  public void run(String input, String esindex){
+  public int run(String input, String esindex){
     SparkConf conf = new SparkConf()
             .setAppName(WordCountTask.class.getName());
     conf.set("spark.es.index.auto.create", "true");
@@ -82,7 +82,7 @@ public class WordCountTask {
 
 
 
-
+  return rddItems.size();
   }
 }
 
