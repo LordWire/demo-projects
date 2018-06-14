@@ -49,43 +49,35 @@ public class WordCountTask {
     //esRDD.take(100).forEach(System.out::println);
     //esRDD.take(100).forEach(p -> );
 
-    Map<String, Object> myMap = new HashMap<>();
-
 
     //esRDD.collect().forEach(i -> myMap.putAll(i));
+    List<Object> rddItems = new ArrayList<>();
     esRDD.collect().forEach(i -> {
-      for(Map.Entry<String, Object> m : i.entrySet()){
-        System.out.println("Key: " + m.getKey());
+      for(Map.Entry<String, Object> miRdd : i.entrySet() ){
+        if(miRdd.getKey().equals("message")){
+          rddItems.add(miRdd.getValue());
+        }
       }
     });
+    System.out.println("list size: " + rddItems.size());
 
 
-    List<Object> vals = new ArrayList<>();
-
-    esRDD.collect().forEach(i -> vals.add(i) );
-
-    //System.out.println("mymap size: " +myMap.size());
-
-
-    List<Map<String, Object>> lmap = new ArrayList<>();
-
-
-    Map<String, Object> result = new HashMap<>();
-    lmap = esRDD.collect();
-
-
-    for(Map<String, Object> item : lmap){
-      for(Map.Entry<String, Object> mItem : item.entrySet()){
-        if( mItem.getKey().equals("message") && mItem.getValue().toString().matches(input) ){
-          System.out.println("NEW MESSAGE: " +  mItem.getValue());
-        }
-
-      }
-    }
+//    List<Map<String, Object>> lmap = new ArrayList<>();
+//    lmap = esRDD.collect();
+//
+//
+//    for(Map<String, Object> item : lmap){
+//      for(Map.Entry<String, Object> mItem : item.entrySet()){
+//        if( mItem.getKey().equals("message") && mItem.getValue().toString().matches(input) ){
+//          System.out.println("NEW MESSAGE: " +  mItem.getValue());
+//        }
+//
+//      }
+//    }
 
 
 
-    List<String> msg = new ArrayList<>();
+   /* List<String> msg = new ArrayList<>();
     System.out.println("size: " + myMap.size());
 
     for(Map.Entry<String, Object>  obj :  myMap.entrySet()){
@@ -93,7 +85,7 @@ public class WordCountTask {
 
         msg.add((String) obj.getValue());
       }
-    }
+    }*/
 
     // Print the messages
 /*
