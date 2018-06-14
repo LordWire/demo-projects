@@ -54,12 +54,13 @@ public class WordCountTask {
     List<Object> rddItems = new ArrayList<>();
     esRDD.collect().forEach(i -> {
       for(Map.Entry<String, Object> miRdd : i.entrySet() ){
-        if(miRdd.getKey().equals("message") && miRdd.getValue() != null){
+        if(miRdd.getKey().equals("message") && miRdd.getValue() != null && miRdd.getValue().toString().matches(input)){
           rddItems.add(miRdd.getValue());
         }
       }
     });
     System.out.println("list size: " + rddItems.size());
+
     //rddItems.stream().forEach(i -> System.out.println(i));
 
 /*
