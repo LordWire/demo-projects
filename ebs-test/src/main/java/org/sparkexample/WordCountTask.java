@@ -54,7 +54,7 @@ public class WordCountTask {
     List<Object> rddItems = new ArrayList<>();
     esRDD.collect().forEach(i -> {
       for(Map.Entry<String, Object> miRdd : i.entrySet() ){
-        if(miRdd.getKey().equals("message") && miRdd.getValue() != null && miRdd.getValue().toString().matches(input)){
+        if(miRdd.getKey().equals("message") && miRdd.getValue() != null && miRdd.getValue().toString().trim().matches(input)){
           rddItems.add(miRdd.getValue());
         }
         else if(miRdd.getKey().equals("message") && miRdd.getValue() != null){
