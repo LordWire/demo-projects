@@ -57,6 +57,10 @@ public class WordCountTask {
         if(miRdd.getKey().equals("message") && miRdd.getValue() != null && miRdd.getValue().toString().matches(input)){
           rddItems.add(miRdd.getValue());
         }
+        else if(miRdd.getKey().equals("message") && miRdd.getValue() != null){
+          System.out.println(miRdd.getValue());
+        }
+
       }
     });
     System.out.println("list size: " + rddItems.size());
