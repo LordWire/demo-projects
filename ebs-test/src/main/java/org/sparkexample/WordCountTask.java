@@ -33,20 +33,20 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class WordCountTask {
   public static void main(String[] args) {
     checkArgument(args.length > 0, "Please provide the path of input file as first parameter.");
-    new WordCountTask().run(args[0], Integer.parseInt(args[1]));
+    new WordCountTask().run(args[0], args[1]);
 
   }
 
 
 
-  public void run(String input, int esindex){
+  public void run(String input, String esindex){
     SparkConf conf = new SparkConf()
             .setAppName(WordCountTask.class.getName());
     conf.set("spark.es.index.auto.create", "true");
     conf.set("spark.es.nodes", "elastest_esnode_1");
     JavaSparkContext context = new JavaSparkContext(conf);
-    JavaRDD<Map<String, Object>> esRDD = esRDD(context, Integer.toString(esindex), "?q=*").values();
-    //esRDD.take(100).forEach(System.out::println);
+    JavaRDD<Map<String, Object>> esRDD = esRDD(context, esindex, "?q=*").values();
+    esRDD.take(100).forEach(System.out::println);
     //esRDD.take(100).forEach(p -> System.out.println(p));
 
     Map<String, Object> myMap = new HashMap<>();
