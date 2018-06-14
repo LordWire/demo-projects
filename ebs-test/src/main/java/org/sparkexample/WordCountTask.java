@@ -50,8 +50,12 @@ public class WordCountTask {
     //esRDD.take(100).forEach(p -> System.out.println(p));
 
     Map<String, Object> myMap = new HashMap<>();
-    esRDD.collect().forEach(i -> myMap.putAll(i));
-    System.out.println("mymap size: " +myMap.size());
+    //esRDD.collect().forEach(i -> myMap.putAll(i));
+    int counter=0;
+    esRDD.collect().forEach(i -> counter++);
+    System.out.println("Counter:" + counter);
+    //System.out.println("mymap size: " +myMap.size());
+
 
     List<Map<String, Object>> lmap = new ArrayList<>();
 
