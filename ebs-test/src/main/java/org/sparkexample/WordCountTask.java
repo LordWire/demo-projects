@@ -58,7 +58,7 @@ public class WordCountTask {
         }
       }
     });
-    System.out.println("list size: " + rddItems.size());
+    System.out.println("list_size: " + rddItems.size());
 
     //rddItems.stream().forEach(i -> System.out.println(i));
 

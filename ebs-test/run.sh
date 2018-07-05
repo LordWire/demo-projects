@@ -1,14 +1,26 @@
-#this works too
-mvn package
+#!/bin/bash
 
-#get the big file
-wget https://norvig.com/big.txt
+# a simple demo script for EBS.
+# $1 is the number of lines we're looking for.
+# $2 is the regex we wish to test
+# $3 is the execution ID we're looking for in elasticsearch
+#
+# So, an execution example would be:
+# ./run.sh 55 "(?s).*WARN.*" 133
 
 
-#clean the pre-existing file
-hadoop fs  -rmr /out.txt
+REGEXP=$2
+EXEC_ID=$3
+REQUESTED_COUNT=$1
+mvn package >/devnull 2>&1
 
-spark-submit --class org.sparkexample.WordCountTask --master spark://spark:7077 /demo-projects/ebs-test/target/hadoopWordCount-1.0-SNAPSHOT.jar /demo-projects/ebs-test/big.txt
 
-hadoop fs -getmerge /out.txt ./out.txt
-head -10 out.txt
+COUNT=$(spark-submit --class org.sparkexample.WordCountTask --master spark://sparkmaster:7077 --conf spark.es.nodes="elastest_esnode_1" /demo-projects/ebs-test/target/hadoopWordCount-1.0-SNAPSHOT.jar $REGEXP $EXEC_ID 2>/dev/null |grep list_size | awk '{print $2}')
+
+if [ $COUNT -lt $REQUESTED_COUNT ]; then
+	echo count is correct.
+	exit 0
+else
+	echo count is above threshold
+	exit 1
+fi
