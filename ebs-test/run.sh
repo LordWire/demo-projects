@@ -18,9 +18,9 @@ mvn package >/devnull 2>&1
 COUNT=$(spark-submit --class org.sparkexample.WordCountTask --master spark://sparkmaster:7077 --conf spark.es.nodes="elastest_esnode_1" /demo-projects/ebs-test/target/hadoopWordCount-1.0-SNAPSHOT.jar $REGEXP $EXEC_ID 2>/dev/null |grep list_size | awk '{print $2}')
 
 if [ $COUNT -lt $REQUESTED_COUNT ]; then
-	echo below threshold: counted $COUNT lines
+	echo below threshold: counted $COUNT lines on a $REQUESTED_COUNT threshold
 	exit 0
 else
-	echo above threshold: counted $COUNT lines
+	echo above threshold: counted $COUNT lines on a $REQUESTED_COUNT threshold
 	exit 1
 fi
